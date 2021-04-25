@@ -15,8 +15,8 @@ import fonts from '../styles/fonts'
 export function Confirmation(){
     const navigation = useNavigation()
 
-    function handleSubmit(){
-        navigation.navigate('Welcome')
+    function handleStart(){
+        navigation.navigate('PlantSelect')
     }
 
     return(
@@ -37,7 +37,7 @@ export function Confirmation(){
                 <View style={styles.footer}>
                     <Button 
                         title= "Começar"
-                        onPress = {handleSubmit}
+                        onPress = {handleStart}
                 />
                 </View>
             </View>
