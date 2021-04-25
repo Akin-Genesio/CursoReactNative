@@ -8,7 +8,8 @@ import {
     KeyboardAvoidingView,
     Platform,
     TouchableWithoutFeedback,
-    Keyboard
+    Keyboard,
+    Alert
 } from 'react-native'
 
 import {useNavigation} from '@react-navigation/core'
@@ -25,6 +26,9 @@ export function UserIdentification(){
     const navigation = useNavigation()
 
     function handleSubmit(){
+        if(!name){
+            return Alert.alert('Me diga como podemos chamar você 😭')
+        }
         navigation.navigate('Confirmation')
     }
     
