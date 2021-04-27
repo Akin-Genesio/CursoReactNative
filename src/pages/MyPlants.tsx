@@ -4,23 +4,50 @@ import {
     View,
     Text,
     FlatList,
-    Image
+    Image,
+    Alert
 }from 'react-native'
 
 import { Header, Load, PlantCardSecondary } from '../Components'
 
 import waterdrop from '../assets/waterdrop.png'
 import colors from '../styles/colors'
-import { loadPlant, PlantProps } from '../Libs/Storage'
+import { loadPlant, PlantProps, removePlant, StoragePlantProps } from '../Libs/Storage'
 import { formatDistance } from 'date-fns'
 import { pt } from 'date-fns/locale'
 import ptBR from 'date-fns/esm/locale/pt-BR/index.js'
 import fonts from '../styles/fonts'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function MyPlants(){
     const [myPlants, setMyPlants] = useState<PlantProps[]>([])
     const [loading, setLoading] = useState(true)
     const [nextWatered, setNextWatered] = useState<String>()
+
+
+    function handleRemove(plant: PlantProps){
+        Alert.alert('Remover', `Deseja remover a ${plant.name}?`,[
+            {
+                text: 'Não 😅', 
+                style: 'cancel'
+            },
+            {
+                text: 'Sim 😭',
+                onPress: async () => {
+                    try{
+                        await removePlant(plant.id)
+
+                        setMyPlants((oldData) => (
+                            oldData.filter((item) => item.id != plant.id)
+                        ))
+
+                    }catch(error){
+                        Alert.alert('Não foi possível remover')
+                    }
+                }
+            }
+        ])
+    }
 
     useEffect(() => {
         async function loadStorageData(){
@@ -69,7 +96,10 @@ export function MyPlants(){
                     data={myPlants}
                     keyExtractor={item => String(item.id)}
                     renderItem={({item}) => (
-                        <PlantCardSecondary data ={item}/>
+                        <PlantCardSecondary 
+                            data ={item}
+                            handleRemove={() => {handleRemove(item)}}
+                        />
                     )}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{flex: 1}}
