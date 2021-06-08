@@ -11,10 +11,9 @@
 <p align="center">
   <a href="#como-executar">Como executar</a> •
   <a href="#funcionalidades">Funcionalidades</a> •
-  <a href="#a-desenvolver">A desenvolver</a>
 </p>
 
-![](https://github.com/vinicius-claus/CursoReactNative/production/preview.png)
+![](https://github.com/vinicius-claus/CursoReactNative/blob/production/preview.png)
 
 
 ## 🚀 Como executar
